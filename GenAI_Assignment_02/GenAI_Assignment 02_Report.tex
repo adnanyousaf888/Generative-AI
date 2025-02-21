@@ -1,0 +1,510 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\begin{document}
+
+\title{Autoencoders and GANs Experiments on CIFAR-10}
+\author{Adnan Yousaf}
+\date{\today}
+
+\maketitle
+\section{Question 01:}
+\begin{abstract}
+This technical report presents the results of experiments conducted with a Variational Autoencoder (VAE) on the CIFAR-10 dataset. The report includes a detailed description of the experiments, loss curves, and visualizations of generated images and real images for comparison. The experiments demonstrate the performance of the VAE in learning the distribution of the CIFAR-10 dataset and generating new images from the learned latent space.
+\end{abstract}
+
+\subsection{Introduction}
+In this report, we describe the experiments conducted using a Variational Autoencoder (VAE) on the CIFAR-10 dataset. The VAE is a generative model that learns the underlying distribution of data and generates new data points from the learned distribution. The CIFAR-10 dataset consists of 60,000 color images (32x32 pixels) in 10 classes, split into 50,000 training images and 10,000 test images.
+
+\subsection{Methodology}
+\subsection{Data Preparation}
+The CIFAR-10 dataset was split into training (80\% of the data) and validation sets (20\% of the data) for training and evaluation purposes. The dataset was preprocessed using the following transformations:
+\begin{itemize}
+    \item Convert images to tensors.
+    \item Normalize pixel values to range [-1, 1].
+\end{itemize}
+
+\subsection{Model Architecture}
+The VAE model consists of an encoder and a decoder. The encoder comprises several convolutional layers that reduce the input images to a latent space representation (mean and log-variance). The decoder reconstructs the input images from the latent representation using transposed convolutional layers. The latent space has a dimensionality of 64.
+
+\subsection{Training}
+The VAE model was trained using the Adam optimizer with a learning rate of 0.001 for 10 epochs. The loss function combines the reconstruction loss (mean squared error) and the KL divergence loss. 
+
+\subsection{Results}
+\subsection{Loss Curves}
+The training loss curves for the VAE are shown in Figure \ref{fig:loss}. The plot shows the reconstruction loss and KL divergence loss for each epoch.
+
+
+
+\subsection{Generated and Real Images}
+To visualize the performance of the VAE, we generated 5 images from the latent space and compared them with 5 randomly selected real images from the test set. Figure \ref{fig:images} shows the generated images and real images for comparison.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Q1_image.png}
+    \caption{Training Epochs and generated images.}
+    \label{fig:my_image}
+\end{figure}
+
+
+
+\subsection{Discussion}
+The results demonstrate that the VAE model effectively learns the underlying distribution of the CIFAR-10 dataset and can generate new images from the latent space. The loss curves indicate that the model converges after a few epochs, with a consistent decrease in both reconstruction and KL divergence losses. The visual comparison between generated and real images suggests that the VAE is capable of producing realistic images.
+
+\subsection{Conclusion}
+The Variational Autoencoder (VAE) model demonstrates good performance in learning the distribution of the CIFAR-10 dataset and generating realistic images. Future work may include exploring different model architectures and hyperparameters to further improve the quality of generated images.
+
+
+
+
+
+
+
+
+
+\section{Question 02}
+
+\title{Conditional Variational Autoencoder Experiments on CIFAR-10}
+
+\maketitle
+
+\begin{abstract}
+This technical report presents the results of experiments conducted with a Conditional Variational Autoencoder (CVAE) on the CIFAR-10 dataset. The report includes a detailed description of the experiments, loss curves, and visualizations of generated images and real images for comparison. The experiments demonstrate the performance of the CVAE in learning the distribution of the CIFAR-10 dataset and generating new images from the learned latent space, conditioned on class labels.
+\end{abstract}
+
+\subsection{Introduction}
+In this report, we describe the experiments conducted using a Conditional Variational Autoencoder (CVAE) on the CIFAR-10 dataset. The CVAE is a generative model that learns the underlying distribution of data and generates new data points conditioned on specific class labels. The CIFAR-10 dataset consists of 60,000 color images (32x32 pixels) in 10 classes, split into 50,000 training images and 10,000 test images.
+
+\subsection{Methodology}
+\subsection{Data Preparation}
+The CIFAR-10 dataset was split into training (80\% of the data) and validation sets (20\% of the data) for training and evaluation purposes. The dataset was preprocessed using the following transformations:
+\begin{itemize}
+    \item Convert images to tensors.
+    \item Normalize pixel values to range [0,1].
+    \item One-hot encode the class labels.
+\end{itemize}
+
+\subsection{Model Architecture}
+The CVAE model consists of an encoder and a decoder. The encoder comprises convolutional layers that take input images and one-hot encoded labels to produce a latent space representation (mean and log-variance). The decoder reconstructs the input images from the latent representation and one-hot encoded labels using transposed convolutional layers. The latent space has a dimensionality of 128.
+
+\subsection{Training}
+The CVAE model was trained using the Adam optimizer with a learning rate of \(1 \times 10^{-4}\) for 10 epochs. The loss function combines the cross-entropy loss between the reconstructed images and the input images, as well as the KL divergence loss between the latent space representation and a standard normal distribution.
+
+\subsection{Results}
+\subsection{Loss Curves}
+The training loss curves for the CVAE are shown in Figure \ref{fig:loss}. The plot shows the reconstruction loss and KL divergence loss for each epoch.
+
+
+\subsection{Generated and Real Images}
+To visualize the performance of the CVAE, we generated 10 images from the latent space and compared them with 10 randomly selected real images from the test set. Figure \ref{fig:images} shows the generated images and real images for comparison.
+
+
+
+\subsection{Discussion}
+The results demonstrate that the CVAE model effectively learns the underlying distribution of the CIFAR-10 dataset and can generate new images from the latent space conditioned on specific class labels. The loss curves indicate that the model converges after a few epochs, with a consistent decrease in both reconstruction and KL divergence losses. The visual comparison between generated and real images suggests that the CVAE is capable of producing realistic images.
+
+\subsection{Conclusion}
+The Conditional Variational Autoencoder (CVAE) model demonstrates good performance in learning the distribution of the CIFAR-10 dataset and generating realistic images conditioned on class labels. Future work may include exploring different model architectures and hyperparameters to further improve the quality of generated images.
+
+
+
+
+
+
+
+
+\section{Question 03}
+
+\title{Conditional Variational Autoencoder and Classifier Model Report}
+
+\subsection{Introduction}
+In this report, we describe the implementation and evaluation of a classifier model based on a Conditional Variational Autoencoder (CVAE). The CVAE is trained on the CIFAR-10 dataset, which consists of images and labels from 10 different classes. We evaluate the classifier model's performance using metrics such as accuracy, precision, recall, and F-measure, and visualize the confusion matrix.
+
+\subsection{Methodology}
+
+\subsection{Data Preparation}
+The CIFAR-10 dataset is loaded using TensorFlow's datasets module. The dataset is split into training, validation, and test sets. All images are normalized to have pixel values between 0 and 1, and the labels are converted to categorical format.
+
+\subsection{Model Implementation}
+The CVAE and classifier models are implemented using the TensorFlow and Keras libraries. The CVAE consists of an encoder and decoder architecture. The encoder processes images and outputs a latent representation, which is used to sample from the latent space. The decoder reconstructs images from the sampled latent representation and the given labels.
+
+The classifier model uses the encoder from the CVAE to encode images and outputs class predictions using a dense layer with softmax activation. 
+
+\subsection{Training and Validation}
+The CVAE is trained for one epoch using a custom training loop, with the model's loss computed using a combination of reconstruction loss and KL divergence.
+
+The classifier model is trained for 20 epochs using Keras's fit method. The training data consists of images concatenated with their corresponding labels. The model is validated at the end of each epoch using the validation data.
+
+\subsection{Evaluation}
+After training, the classifier model is evaluated using the test data. Metrics such as accuracy, precision, recall, and F-measure are calculated. The confusion matrix is also plotted using Seaborn to visualize the model's performance on different classes.
+
+\subsection{Results and Discussion}
+
+
+
+
+
+
+\subsection{Training and Validation Loss}
+The loss for each epoch during training is plotted in Figure 2. Both training and validation loss decrease over time, indicating that the model is learning effectively.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Q21_image.png}
+    \caption{Loss, Accuracy, Precision, Recall, F-measure}
+    \label{fig:my_image}
+\end{figure}
+
+\subsection{Model Performance}
+The classifier model's performance on the test set is summarized below:
+
+
+
+\subsection{Confusion Matrix}
+The confusion matrix, plotted in Figure \ref{fig:conf_matrix}, shows the model's predictions versus the true labels. The model exhibits good performance across most classes, with the diagonal elements representing correctly classified examples.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Q22_image.png}
+    \caption{Confusion Matrix}
+    \label{fig:my_image}
+\end{figure}
+
+
+\subsection{Conclusion}
+The CVAE-based classifier model demonstrated satisfactory performance on the CIFAR-10 dataset, achieving good accuracy, precision, recall, and F-measure. The confusion matrix provides insights into the model's performance on different classes. Further improvements could include training the model for more epochs and tuning hyperparameters.
+
+
+
+
+
+
+
+
+\section{Question 04}
+\title{Generative Adversarial Network on CIFAR-10 Report}
+
+\subsection{Introduction}
+In this report, we describe the implementation and training of a Generative Adversarial Network (GAN) on the CIFAR-10 dataset. The GAN consists of a generator and a discriminator network, which work in opposition to each other. The objective is to train the generator to create realistic images while the discriminator learns to differentiate between real and generated images.
+
+\subsection{Methodology}
+
+\subsection{Data Preprocessing}
+The CIFAR-10 dataset was loaded using PyTorch's `torchvision` library. The dataset was transformed by resizing the images to $64 \times 64$ pixels and normalizing the pixel values. The dataset was split into training and validation sets, with 80% of the data used for training.
+
+\subsection{Model Architecture}
+The GAN consists of two networks:
+\begin{itemize}
+    \item \textbf{Generator:} The generator model transforms a random noise vector (latent space) into a realistic image. It uses a series of transposed convolutional layers with batch normalization and ReLU activation functions. The final layer uses a tanh activation function to generate images with pixel values between -1 and 1.
+    \item \textbf{Discriminator:} The discriminator model takes an image as input and classifies it as either real or fake. It uses a series of convolutional layers with batch normalization and LeakyReLU activation functions. The final layer uses a sigmoid activation function to output a probability.
+\end{itemize}
+
+\subsection{Training Loop}
+The training loop involves alternating between training the discriminator and the generator:
+\begin{itemize}
+    \item \textbf{Training the Discriminator:} The discriminator is trained on both real and generated (fake) images. The real images are labeled as 1 (real), and the generated images are labeled as 0 (fake). The loss for the discriminator is the sum of the loss on real and generated images.
+    \item \textbf{Training the Generator:} The generator is trained using the discriminator's feedback on generated images. The generator aims to maximize the discriminator's classification of generated images as real.
+\end{itemize}
+The training process is repeated for a specified number of epochs.
+
+\subsection{Results and Discussion}
+
+\subsection{Loss Curves}
+The loss curves for the generator and discriminator during training. The discriminator loss oscillates as it learns to differentiate between real and fake images, while the generator loss gradually decreases as it learns to generate more realistic images.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Q41_image.png}
+    \caption{GAN Training Loss}}
+    \label{fig:my_image}
+\end{figure}
+
+
+
+
+
+\title{GAN Image Generation and Evaluation Report}
+
+
+\subsection{Generation and Display of Fake Images}
+A set of 5 fake images is generated using the trained generator model. Random noise vectors are sampled from a standard normal distribution and passed through the generator to produce the images. These images are displayed with the title "Generated Images."
+
+\subsection{Loading and Displaying Real Images}
+The CIFAR-10 test dataset is loaded using PyTorch's `torchvision` library. A batch of 5 real images is randomly sampled from the dataset and displayed with the title "Real Images."
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Q42_image.png}
+    \caption{Generated vs Real Images.}
+    \label{fig:my_image}
+\end{figure}
+
+
+\subsection{Computation of FID Score}
+The Frechet Inception Distance (FID) score is computed to measure the similarity between real and fake images. The FID score is calculated based on the mean and covariance of feature vectors extracted from real and fake images. Lower FID scores indicate higher similarity between real and fake images, which implies better quality of generated images. The function `compute_fid_score` calculates the FID score between two sets of data: real and fake images. It computes the mean and covariance matrices for both sets and then calculates the square root of the product of the covariance matrices. The FID score is then computed based on the mean difference and the trace of the covariance matrices.
+
+\subsection{Results}
+
+\subsection{Generated and Real Images}
+Figure displays the 5 fake images generated by the GAN, while Figure displays 5 real images from the CIFAR-10 test dataset.
+
+
+\subsection{FID Score}
+The computed FID score between real and fake images is 51.59. The FID score can be used to assess the quality of the GAN-generated images, with lower scores indicating higher quality.
+
+\subsection{Conclusion}
+The GAN was successfully trained on the CIFAR-10 dataset, as evidenced by the loss curves. The generator and discriminator networks effectively learned to generate and classify realistic images, respectively. Future improvements could include training for more epochs, adjusting hyperparameters, and exploring more advanced GAN architectures.This report demonstrated the generation and display of images using a trained GAN model on the CIFAR-10 dataset. Additionally, the FID score was computed to evaluate the similarity between real and fake images. This evaluation provides insight into the quality of the GAN-generated images.
+
+
+
+
+
+
+
+\section{Question 05}
+\title{GAN Implementation with Mini-batch Discriminator}
+\subsection{Introduction}
+This report presents the training and evaluation of a Generative Adversarial Network (GAN) using TensorFlow and Keras on the CIFAR-10 dataset. The GAN architecture consists of a generator and discriminator model, both of which are described in detail. The GAN model is trained using a loss function, optimizers, and training loops.
+
+\subsection{Methodology}
+
+\subsection{Data Preprocessing}
+The CIFAR-10 dataset is loaded and normalized to the range [-1,1]. The dataset is then split into batches for training using TensorFlow's `tf.data.Dataset`.
+
+\subsection{Generator Model}
+The generator model is defined using Keras' Sequential API. It starts with a dense layer followed by batch normalization and LeakyReLU activation. It then reshapes the output to 4x4x256, followed by a series of Conv2DTranspose layers with batch normalization and LeakyReLU activation. The final output layer uses a tanh activation function to generate images in the range [-1,1].
+
+\subsection{Discriminator Model}
+The discriminator model is also defined using Keras' Sequential API. It consists of Conv2D layers with strides of (2,2) for down-sampling, LeakyReLU activation, and dropout layers to prevent overfitting. The output layer is a dense layer producing a scalar output.
+
+\subsection{GAN Model}
+The GAN model combines the generator and discriminator models. The discriminator's weights are frozen to prevent updating during generator training. The model takes random noise as input and outputs the discriminator's decision on whether the generated image is real or fake.
+
+\subsection{Loss Functions and Optimizers}
+Binary cross-entropy loss is used as the loss function for both the generator and discriminator models. The generator aims to minimize the loss when producing fake images classified as real, while the discriminator aims to minimize the loss when classifying real and fake images. Adam optimizers with a learning rate of $1 \times 10^{-4}$ are used for both models.
+
+\subsection{Training Loop}
+The training loop iterates through epochs, and for each epoch, it iterates through batches of data from the training dataset. In each iteration, the generator and discriminator models are trained using gradient tapes to compute gradients and apply them using the Adam optimizers.
+
+
+\title{GAN Training and Evaluation with Mini-Batch Discrimination}
+
+
+\subsection{Introduction}
+Generative Adversarial Networks (GANs) have been widely used for generating realistic images from random noise. In this report, we describe the training and evaluation of a GAN with a discriminator model that includes a mini-batch discrimination layer. The mini-batch discrimination technique aims to improve the discriminator's ability to distinguish between real and fake images.
+
+\subsection{Methodology}
+
+\subsection{Data Preprocessing}
+The CIFAR-10 dataset is loaded and normalized to the range [-1,1]. The dataset is split into batches for training using TensorFlow's `tf.data.Dataset`.
+
+\subsection{Generator Model}
+The generator model is defined using Keras' Sequential API. It starts with a dense layer followed by batch normalization and LeakyReLU activation. It then reshapes the output to 4x4x256, followed by a series of Conv2DTranspose layers with batch normalization and LeakyReLU activation. The final output layer uses a tanh activation function to generate images in the range [-1,1].
+
+\subsection{Discriminator Model with Mini-Batch Discrimination}
+The discriminator model is defined using Keras' Sequential API and includes a mini-batch discrimination layer. This layer aims to improve the discriminator's ability to identify similarities across batches of images by computing differences between features of images from the same batch. The layer then computes an output based on these differences and appends the result to the original input features.
+
+\subsection{GAN Model}
+The GAN model combines the generator and discriminator models. The discriminator's weights are frozen to prevent updating during generator training. The model takes random noise as input and outputs the discriminator's decision on whether the generated image is real or fake.
+
+\subsection{Loss Functions and Optimizers}
+Binary cross-entropy loss is used as the loss function for both the generator and discriminator models. The generator aims to minimize the loss when producing fake images classified as real, while the discriminator aims to minimize the loss when classifying real and fake images. Adam optimizers with a learning rate of $1 \times 10^{-4}$ are used for both models.
+
+\subsection{Training Loop}
+The training loop iterates through epochs, and for each epoch, it iterates through batches of data from the training dataset. In each iteration, the generator and discriminator models are trained using gradient tapes to compute gradients and apply them using the Adam optimizers.
+
+\subsection{Results}
+
+\subsection{Training GAN with Mini-Batch Discrimination}
+The GAN model was trained for 10 epochs on the CIFAR-10 dataset with the mini-batch discrimination layer in the discriminator. The training loop executed successfully, updating the model weights according to the loss values.
+
+\subsection{Generated Images}
+Figure \ref{fig:generated_images} shows the images generated using the traditional GAN and the GAN with the mini-batch discrimination layer.
+
+\subsection{Results}
+The GAN model was trained for 10 epochs on the CIFAR-10 dataset. During training, the loss values for both the generator and discriminator models were recorded and can be visualized to observe the progression of training.
+
+\subsection{Conclusion}
+This report described the training of a GAN model on the CIFAR-10 dataset using TensorFlow and Keras with a mini-batch discrimination layer in the discriminator model. The mini-batch discrimination technique aims to improve the discriminator's ability to distinguish between real and fake images. The generated images were displayed for visual evaluation, and future work could include quantitative evaluation of the generated images using metrics such as FID score. This report described the training of a GAN model on the CIFAR-10 dataset using TensorFlow and Keras. The training loop, loss functions, and optimizers used were outlined. The GAN model's performance can be evaluated based on the loss curves, and future work could include visualizing the generated images and further optimizing the model for improved image quality.
+
+
+
+
+
+
+
+
+\section{Question 06}
+\title{Training and Evaluation of VAE-GAN on CIFAR-10 Dataset}
+
+\subsection{Introduction}
+The Variational Autoencoder (VAE) combined with a Generative Adversarial Network (GAN) is a powerful method for generating realistic images. This report discusses the training and evaluation of a VAE-GAN on the CIFAR-10 dataset using TensorFlow and Keras. The training process involves minimizing both reconstruction and KL-divergence losses in the VAE, as well as binary cross-entropy loss in the GAN's discriminator.
+
+\subsection{Methodology}
+
+\subsection{Data Preprocessing}
+The CIFAR-10 dataset is loaded and normalized to the range [-1,1]. The training dataset is split into batches and shuffled using TensorFlow's `tf.data.Dataset`.
+
+\subsection{Model Architectures}
+
+\subsubsection{Variational Autoencoder (VAE)}
+The VAE consists of an encoder and decoder. The encoder uses convolutional layers followed by dense layers to generate the mean and log variance for the latent space. The decoder uses dense and convolutional transpose layers to reconstruct images from the latent space.
+
+\subsubsection{Generative Adversarial Network (GAN)}
+The GAN includes a discriminator model to distinguish between real and reconstructed images. The discriminator uses convolutional layers with leaky ReLU activation functions and dropout for regularization.
+
+\subsection{Training Procedure}
+The training process involves two main steps: updating the VAE and updating the discriminator.
+
+\subsection{Updating the VAE}
+The VAE is trained to minimize the sum of reconstruction loss (Mean Squared Error between real and reconstructed images) and KL-divergence loss (to ensure smooth distribution in the latent space). Gradients are computed and applied to update the VAE's trainable variables.
+
+\subsection{Updating the Discriminator}
+The discriminator is trained to minimize binary cross-entropy loss for real and reconstructed images. Gradients are computed and applied to update the discriminator's trainable variables.
+
+\subsection{Results}
+The training process was carried out for 10 epochs. Figure shows the training loss curves for both the VAE and the discriminator.
+
+
+\subsection{Conclusion}
+This report described the training and evaluation of a VAE-GAN on the CIFAR-10 dataset. The training involved minimizing both reconstruction and KL-divergence losses in the VAE, as well as binary cross-entropy loss in the GAN's discriminator. The loss curves showed the progression of training over 10 epochs. Further evaluation of the model can be carried out to assess the quality of generated images and compare with other generative models.
+
+
+
+\section{Question 07}
+\title{Training Twin Variational Autoencoders for Image Translation}
+
+
+\subsection{Introduction}
+This report discusses the training and evaluation of twin Variational Autoencoders (VAEs) for image translation between images of cats and dogs from the CIFAR-10 dataset. The training process aims to minimize reconstruction and KL-divergence losses in the VAEs and to train the models to translate images from one category (cat) to the other (dog) and vice versa.
+
+\subsection{Methodology}
+
+\subsection{Data Preprocessing}
+The CIFAR-10 dataset is loaded and normalized to the range [-1,1]. Images labeled as cats (label 3) and dogs (label 5) are separated into two datasets: cat images and dog images, respectively. Both datasets are then split into batches and shuffled using TensorFlow's `tf.data.Dataset`.
+
+\subsection{Model Architectures}
+
+\subsubsection{Variational Autoencoders (VAEs)}
+The twin VAEs consist of encoder and decoder models. The encoders use convolutional layers followed by dense layers to generate the mean and log variance for the latent space. The decoders use dense and convolutional transpose layers to reconstruct images from the latent space.The twin VAEs consist of two separate models: `cat_vae` for encoding and decoding cat images, and `dog_vae` for encoding and decoding dog images.
+
+\subsection{Training Process}
+The training process involves updating the twin VAEs in each epoch by minimizing the reconstruction loss (Mean Squared Error between real and reconstructed images) and KL-divergence loss (to ensure smooth distribution in the latent space). The VAEs also translate images from one category to the other. For example, the `cat_vae` decodes a latent representation of a dog image into a cat image, and vice versa for the `dog_vae`. This translation loss is added to the respective VAE loss. Gradients are computed and applied to update the VAEs' trainable variables using the Adam optimizer.
+
+\subsection{Results}
+The training process was carried out for 50 epochs. The training loss curves for both the cat and dog VAEs. 
+
+
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Q71_image.png}
+    \caption{VAE-GAN Training Loss}
+    \label{fig:my_image}
+\end{figure}
+
+\subsection{Conclusion}
+This report described the training and evaluation of twin Variational Autoencoders (VAEs) for image translation between cats and dogs. The training process involved minimizing reconstruction and KL-divergence losses, as well as translation losses. The loss curves showed the progression of training over 50 epochs. Further evaluation of the models could include assessing the quality of translated images and comparison with other generative models.
+
+
+
+
+
+
+
+
+
+
+\section{Model Analysis: GAN with Mini-Batch Discrimination and Variational Autoencoders}
+
+
+\subsection{Batch Discrimination Layer Model (GAN with Mini-Batch Discrimination)}
+\subsection{Model Description}
+The model is a Generative Adversarial Network (GAN) with a mini-batch discrimination layer in the discriminator. This layer is designed to differentiate between samples in a batch to determine whether they come from different sources (real vs. generated images).
+
+\subsection{Results}
+
+\begin{itemize}
+    \item \textbf{Low Accuracy}: Low accuracy in differentiating between real and generated images can result from:
+        \begin{itemize}
+            \item Insufficient training: The model may not have had enough training epochs to converge.
+            \item Learning rate: The discriminator may not learn effectively if the learning rate is too high or too low.
+        \end{itemize}
+    \item \textbf{Training Error Low, Validation Error High}: This suggests overfitting:
+        \begin{itemize}
+            \item Overfitting may occur when the model learns specific features of the training data too well but fails to generalize to new, unseen data.
+            \item Mini-batch discrimination might over-penalize differences in the batch, leading to excessive specialization on the training set.
+        \end{itemize}
+\end{itemize}
+
+\section{Variational Autoencoders (VAEs)}
+
+\subsection{Description}
+Variational Autoencoders (VAEs) extend traditional autoencoders with probabilistic modeling. They consist of an encoder and decoder, where the encoder maps inputs to a latent space, and the decoder reconstructs inputs from the latent space.
+
+\subsection{Applications}
+\begin{itemize}
+    \item Generative modeling: VAEs can generate new samples similar to the training data.
+    \item Data compression: Encoding data into a compact latent representation.
+    \item Data imputation: Filling missing values by sampling from the latent distribution.
+\end{itemize}
+
+\section{Conditional Variational Autoencoders (CVAE)}
+
+\subsection{Description}
+Conditional Variational Autoencoders extend VAEs by conditioning both the encoder and decoder on additional information such as labels. This allows the model to control the generation process based on the conditioned variables.
+
+\subsection{Applications}
+\begin{itemize}
+    \item Controlled generation: Generating samples from specific classes or under certain conditions.
+    \item Data augmentation: Enhancing datasets by generating new samples with specific properties.
+    \item Image-to-image translation: Converting images from one domain to another (e.g., from grayscale to color).
+\end{itemize}
+
+\section{VAE Encoder as Feature Extractor for Classification}
+
+\subsection{Description}
+The encoder of a VAE can be used as a feature extractor, mapping high-dimensional input data to a lower-dimensional latent space. The latent representations can then be used as features for classification tasks.
+
+\subsection{Applications}
+\begin{itemize}
+    \item Classification: Use the latent representations as inputs to a classifier (e.g., logistic regression, support vector machine).
+    \item Anomaly detection: Identify anomalies by comparing the input data's representation in the latent space with the expected distribution.
+    \item Clustering: Perform clustering on the latent representations to identify groups or patterns within the data.
+\end{itemize}
+
+\subsection{Advantages and Considerations}
+\begin{itemize}
+    \item \textbf{Advantages}: Reduced dimensionality, capturing complex data patterns, and noise reduction.
+    \item \textbf{Considerations}: Quality of the latent space representation depends on how well the VAE models the data distribution and overfitting should be avoided.
+\end{itemize}
+
+
+
+
+\section*{References}
+
+\begin{enumerate}
+    \item Rajput, P. S., \& Aneja, S. (2021). IndoFashion: Apparel Classification for Indian Ethnic Clothes. arXiv e-prints.
+    Retrieved from \url{https://indofashion.github.io/assets/paper.pdf}
+    
+    \item Cao, S., Chai, W., Hao, S., Zhang, Y., Chen, H., \& Wang, G. (2023). DiffFashion: Reference-based Fashion Design with Structure-aware Transfer by Diffusion Models. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/2302.06826.pdf}
+    
+    \item Rajput, P. S., \& Aneja, S. (2021). Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops, pp. 3935-3939.
+    
+    \item Rostamzadeh, N., Hosseini, S., Boquet, T., Stokowiec, W., Zhang, Y., Jauvin, C., \& Pal, C. (2018). Fashion-Gen: The Generative Fashion Dataset and Challenge. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/1806.08317v2.pdf}
+    
+    \item Liu, X., Li, J., Wang, J., \& Liu, Z. (2020). MMFashion: An Open-Source Toolbox for Visual Fashion Analysis. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/2005.08847v2.pdf}
+    
+    \item Ma, Q., Yang, J., Ranjan, A., Pujades, S., Pons-Moll, G., Tang, S., \& Black, M. J. (2020). Learning to Dress 3D People in Generative Clothing. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/1907.13615v3.pdf}
+\end{enumerate}
+
+\end{document}
