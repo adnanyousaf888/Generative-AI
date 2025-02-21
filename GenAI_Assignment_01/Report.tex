@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{float}
+
+\title{Technical Report on CIFAR-10 Image Classification}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+The CIFAR-10 dataset comprises 60,000 small images classified into 10 categories. These images serve as a standard benchmark for evaluating various machine learning models in image classification tasks. This report aims to explore different neural network architectures for classifying CIFAR-10 images. We will assess each model's performance, analyze its accuracy, and discuss its advantages and limitations.
+
+\section{Experiment 1: Baseline CNN Model}
+
+For our initial experiment, we constructed a simple convolutional neural network (CNN) model. This model includes three layers for processing image data, followed by fully connected layers. Training was performed using the Adam optimization algorithm, and model performance was evaluated using categorical cross-entropy.
+
+\subsection{Results}
+
+\begin{itemize}
+    \item \textbf{Training and Validation Accuracy:} The model exhibited satisfactory performance on the training data, achieving approximately 80\% accuracy after ten epochs. However, its validation accuracy was lower, around 70\%, indicating potential difficulty in generalizing to new images.
+    \item \textbf{Training and Validation Loss:} While the training loss decreased steadily over epochs, the validation loss remained higher, suggesting overfitting, where the model memorizes training data instead of learning general patterns.
+\end{itemize}
+
+\section{Experiment 2: Data Preprocessing and Augmentation}
+
+To address overfitting observed in the baseline model, we applied preprocessing techniques to our data. This involved augmenting the dataset with rotated and zoomed variations of existing images and scaling pixel values to a standard range.
+
+\subsection{Results}
+
+\begin{itemize}
+    \item \textbf{Impact of Data Preprocessing:} Normalizing the data stabilized the training process, while augmenting the dataset with diverse images strengthened the model and prevented over-reliance on specific details.
+    \item \textbf{Improved Validation Accuracy:} These techniques led to a slight improvement in model performance, particularly in terms of validation accuracy, indicating better generalization to new images.
+\end{itemize}
+
+\section{Experiment 3: Transfer Learning with ResNet50}
+
+In our third experiment, we employed transfer learning using the ResNet50 architecture. This pre-trained model, initially trained on the ImageNet dataset, was fine-tuned for the CIFAR-10 task.
+
+\subsection{Results}
+
+\begin{itemize}
+    \item \textbf{Performance Improvement:} Transfer learning with ResNet50 resulted in higher validation accuracy compared to the baseline CNN model, demonstrating the effectiveness of leveraging pre-trained models for similar tasks.
+    \item \textbf{Training Time:} Fine-tuning a pre-trained model required fewer training iterations, leading to faster convergence and reduced training durations.
+\end{itemize}
+
+\section{Conclusion}
+
+\begin{itemize}
+    \item \textbf{Model Comparison:} The ResNet50-based model outperformed others in terms of validation accuracy, highlighting the benefits of transfer learning, particularly with limited training data.
+    \item \textbf{Limitations:} Despite improvements, all models exhibited overfitting, indicating the need for additional regularization techniques such as dropout and weight decay.
+    \item \textbf{Future Directions:} Future research could explore ensemble methods and advanced architectures to further improve performance. Optimization of hyperparameters may also yield better results.
+\end{itemize}
+
+\section{Experiment 1: Baseline Training}
+
+We initiated our experimentation by training the RowLSTMPixelCNN model on the CIFAR-10 dataset for five epochs. The training setup involved a batch size of 64 and a learning rate of 0.0001. Throughout the training process, we closely monitored the model's loss values to ensure efficient learning.
+
+\subsection{Findings}
+
+\textbf{Training Progress:} At regular intervals of every 100 batches, we recorded the epoch, batch index, and corresponding loss to track the model's training progress. This detailed monitoring allowed us to gain insights into how the model learns over time.
+
+\section{Experiment 2: Image Generation}
+
+After completing the training phase, we utilized the trained model to generate sample images. By starting with a blank seed image, the model iteratively predicted pixel values to construct complete images resembling those in the CIFAR-10 dataset.
+
+\subsection{Results}
+
+\textbf{Generated Images:} Our model successfully produced sample images that closely resembled CIFAR-10 images, demonstrating its ability to recognize and replicate visual patterns effectively.
+
+\section{Experiment 3: Evaluation of Log-Likelihood}
+
+To objectively evaluate the model's performance in generating realistic images, we computed its log-likelihood score on the test dataset. Higher scores indicate better performance in producing images similar to those in the CIFAR-10 dataset.
+
+\subsection{Findings}
+
+\textbf{Log-Likelihood Score:} The calculated log-likelihood score serves as a quantitative measure of how well the model generates images resembling CIFAR-10 images.
+
+\section{Discussion}
+
+Our experiments highlight the potential of the RowLSTMPixelCNN architecture for CIFAR-10 image generation and classification tasks. While the model exhibited promising results in training and image generation, further investigation is needed to understand factors influencing its performance, such as discrepancies in accuracy and loss behavior during training.
+
+\section{Conclusion}
+
+This study showcases our successful implementation and evaluation of the RowLSTMPixelCNN model for CIFAR-10 image generation and classification. Our findings contribute to advancing research in neural network architectures for image processing applications.
+
+\section{Prospective Courses}
+
+Future endeavors will focus on refining the RowLSTMPixelCNN model's architecture and training parameters to enhance its performance further. Additionally, exploring advanced evaluation methods such as the Frechet Inception Distance (FID) will provide deeper insights into the model's capabilities.
+
+\section{Experiment 1: Baseline Training}
+
+We trained three PixelCNN variations (A, B, and C) on the CIFAR-10 dataset for ten epochs. Each variant was trained using a batch size of 128 and the Adam optimizer with a learning rate of 0.001.
+
+\subsection{Findings}
+
+Throughout the training process, we monitored the training loss for each variant. This allowed us to track the convergence rate and the extent of dataset learning for each variation.
+
+\section{Experiment 2: Creation of Images}
+
+After completing the training phase, we generated sample images using the trained PixelCNN models. Our aim was to produce images resembling those in the CIFAR-10 dataset by iteratively predicting pixel values starting with a blank seed image.
+
+\subsection{Findings}
+
+We visually examined the sample images produced by each PixelCNN variation to assess their quality. Our evaluation focused on the degree of similarity between the generated images and the original CIFAR-10 dataset.
+
+\section{Experiment 3: Log-Likelihood Evaluation}
+
+We calculated the log-likelihood scores using the test dataset to objectively assess the image generating performance of each PixelCNN variation. Higher log-likelihood scores indicate better similarity between the generated images and the original dataset.
+
+\subsection{Findings}
+
+We compared the log-likelihood scores of each PixelCNN variation to evaluate their effectiveness in producing realistic images.
+
+\section{Experiment 4: Calculating Frechet Inception Distance (FID)}
+
+To analyze the distributions of features extracted from the generated images by different PixelCNN variations, we utilized the FID metric. Lower FID scores indicate better similarity between the distributions of generated and real images.
+
+\subsection{Results}
+
+We computed pairwise FID scores for each combination of PixelCNN variations, enabling us to assess the diversity and quality of the generated images.
+
+\section{Discussion}
+
+The findings from our evaluation provide insights into the strengths and weaknesses of each PixelCNN variation for generating CIFAR-10 images. We examined differences in training progress, image creation quality, and quantitative evaluation criteria to understand the performance of each variant comprehensively.
+
+\section{Conclusion}
+The performance of several CNN architectures in classifying CIFAR-10 images is examined in this study, emphasizing the critical roles that transfer learning, augmentation, and data pretreatment play in enhancing model robustness and accuracy. The effective application and evaluation of the RowLSTMPixelCNN model for CIFAR-10 image tasks that are reported here significantly advance current attempts to develop effective neural network architectures for tasks involving images. Furthermore, the extensive testing of PixelCNN variations for CIFAR-10 image production broadens our knowledge of the capacity of autoregressive models to produce high-quality images. However, more investigation is required to improve PixelCNN models and increase their applicability in diverse image creation situations.
+
+\end{document}
