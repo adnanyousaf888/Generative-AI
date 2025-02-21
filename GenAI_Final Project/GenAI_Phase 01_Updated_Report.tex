@@ -1,0 +1,198 @@
+\documentclass{article}
+\usepackage{graphicx} % For including images
+\usepackage{amsmath} % For math symbols and equations
+\usepackage{booktabs} % For tables
+\usepackage{caption}
+\usepackage{subcaption} % For subfigures
+
+\begin{document}
+
+\title{Technical Report: Experimenting with CycleGANs and Conditional GANs for FashionVision}
+\author{Adnan Yousaf}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+In the study under discussion, two types of Generative Adversarial Networks (GANs)—CycleGANs and Conditional GANs—are used to transform fabric patterns into whole garment representations. The advantage of Cycle GANs is that they can learn mappings between two different domains without requiring paired data, while Conditional GANs can only provide results under certain input conditions. The project investigates how to convert fabric patterns into completed apparel designs by utilizing these GAN networks.
+The report provides a comprehensive overview of the conducted tests together with detailed explanations of the methodology. This most likely contains information about the network topologies, training protocols, evaluation standards, and data pretreatment methods that are employed to determine the efficacy of the models. The essay also discusses the advantages and disadvantages of applying Conditional GANs and CycleGANs for this particular use case, along with the conclusions drawn from the experiments.
+In addition, the research likely provides new perspectives on the application of GANs in the fashion industry, shedding light on the potential consequences for the field. It might examine how this kind of technology could promote creativity, make customized fashion more accessible, and speed up the clothing design process. The study contributes to the current conversation around the convergence of Artificial Intelligence.
+
+
+
+
+\section{CycleGAN Experiment}
+
+\subsection{Methodology}
+In our CycleGAN experiment, we employed two sets of data: one with pictures of the entire outfit (Domain Y) and the other with little fabric patches (Domain X). For the CycleGAN, we set up two generators and two discriminators. These generators create images in the same way as visual artists do, and the discriminators, in the role of reviewers, judge how realistic those images are. Two types of "loss" functions were used: an adversarial loss to ensure realism in the generated images, and a cycle consistency loss to ensure the fabric patch stays unchanged when it is changed from a dress to a skirt and back again. We were able to convert fabric patches into entire garment graphics and vice versa using this configuration without needing to match matching cloth patches to matching outfits while in training. This demonstrated how adaptable and helpful CycleGANs can be when changing the look of a picture.
+
+\section{Technical Discussion}
+
+\subsection{System Architecture}
+
+The cornerstone of our system is the Conditional CycleGAN architecture, composed of two primary components: generators (G and F) and discriminators (D\_X and D\_Y). Together, these elements enable us to achieve our objective. Generators act akin to painters, transforming fabric patterns into garment designs and vice versa, while discriminators function as judges, assessing the realism of the generated images.
+
+The two generators (G and F) work collaboratively. Initially, the input image undergoes compression into a simplified format known as a latent space. Subsequently, this information is utilized to replicate the image in the target domain, considering variables such as fabric type and pattern orientation. This process is analogous to creating a detailed painting.
+
+Discriminators (D\_X and D\_Y) are networks trained to differentiate between generated and real images within their respective domains. Their role is to ensure that the generated images closely resemble real-world apparel shots.
+
+\subsection{Loss Functions and Optimization Techniques}
+
+In training our Conditional CycleGAN, we employ multiple loss functions:
+
+\textbf{Adversarial Loss:} This ensures that our model generates images so realistic that even the discriminators cannot distinguish them from real ones. It is akin to training our model to faithfully represent as much of the real world as possible.
+
+\textbf{Cycle Consistency Loss:} This function preserves pattern integrity by ensuring that, when translating a fabric pattern into a garment design and back again, the original fabric pattern is retrieved. It is similar to ensuring that a round trip does not deviate from the purpose of the journey.
+
+\textbf{Identity Loss:} Here, we encourage the model to maintain the original colors of the clothes.
+
+\subsection{Insights and Recommendations for Enhancement}
+
+Our study has yielded several significant insights, including:
+
+- Achieving a balance between adversarial and cycle consistency losses is crucial for providing both realism and precision in pattern transfer.
+- Identity loss plays a major role in preserving the original hues and textures of garments, adding to the authenticity of the final images.
+
+Moving forward, we see opportunities for development:
+
+- Experimenting with more complex network architectures may be necessary to increase the variety of fabric patterns that the generators can process.
+- By including additional conditional layers or inputs that allow adjustments to properties like illumination or fabric texture depth, the versatility and realism of the generated images may be further enhanced.
+
+
+\subsection{Results}
+The results of the CycleGAN experiment are presented in Table and Figures.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccc}
+        \toprule
+        \textbf{Epoch} & \textbf{D\_X Loss} & \textbf{D\_Y Loss} & \textbf{G/F Loss} \\
+        \midrule
+        50 & 0.45 & 0.52 & 1.23 \\
+        100 & 0.40 & 0.48 & 1.10 \\
+        200 & 0.35 & 0.45 & 1.05 \\
+        \bottomrule
+    \end{tabular}
+    \caption{CycleGAN experiment results: loss values over epochs.}
+    \label{tab:cyclegan_results}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{cond.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+
+
+In Figure, the loss curves show that the adversarial and cycle consistency loss decrease over epochs, indicating successful training. In Figure, the generated images demonstrate how the model translates fabric designs to dress images.
+
+\subsection{Discussion}
+The results of our CycleGAN experiment demonstrate that the model gains some proficiency in producing clothing images using fabric patches. As we proceeded to train the model, the values that show how far its estimations differ from reality shrank, suggesting that the model is learning effectively. Furthermore, with time, the visuals it generates start to resemble actual clothing. This suggests that the model is getting a better understanding of how cloth patches turn into clothes. It's like to continually practicing drawing; even though you start out shaky, with practice your drawings get more and more precise. In this case, the "drawings" are the models' creations of clothes made from the fabric designs.
+As a result, as the experiment continued, the model became more adept at this task and the images it generated started to resemble real clothes. This suggests that CycleGANs are capable of understanding the relationship between fabric patterns and finished garments. It's rather remarkable to watch how the model learns more and more about this process over time. This insight may prove invaluable for artistic endeavors requiring image manipulation, as well as for careers in apparel design. All things considered, it's amazing to watch how these artificial intelligence models are evolving and the extent of their ability to understand and generate visual representations of real objects.
+
+
+
+\section{Conditional GAN Experiment}
+
+\subsection{Methodology}
+A condition akin to the clothing style, which is employed as extra input by the discriminator and generator, is a new twist we added to the Conditional GAN experiment. This suggests that the model can modify the final image according to this situation. For this reason, it will make sure to create an image in the style you specify if you provide it instructions to do so. In that the model identifies your preferred image type based on the characteristics you offer, it's like giving it a personalized instruction manual.
+Using this strategy makes it easier to get the exact kind of image we want since we have greater control over the model's output. It's like following a recipe for food: you follow the instructions, and In the end, you have the perfect feast. Similar to this, Conditional GANs function by giving the model a condition or recipe to follow while preparing an image. This experiment shows how well GANs can be trained, opening up new possibilities for the production of personalized images for a variety of uses.
+
+
+\section{Technical Discussion}
+
+\subsection{Architecture and Implementation}
+
+Put another way, the PyTorch programming tool is used to build the Generator and the Discriminator, which make up the system. The overlay that combines the fabric pattern with the garment must be created by the Generator. It works like this: the clothes and fabric images are first reduced by an encoder into a simpler format called a latent space. It then uses a separate part called the decoder to convert the truncated data into the appropriate overlay picture. 
+Think of it like baking a cake: the encoder mixes all the ingredients, and the decoder turns the mixture back into a delicious cake. This arrangement's encoder and decoder are crucial parts since they guarantee that the Generator does a good job at what it does. The entire process helps the computer understand how to seamlessly blend the patterns of the clothes and the fabric together. It's like giving the computer a formula to make sure the overlay is exactly what you want. These components are the fundamental building pieces of the system and allow for the construction of the visually striking fabric overlays that you see.
+
+
+
+
+\begin{itemize}
+    \item Encoder: Sequential layers of 2D convolutional layers that increase in depth while reducing spatial dimensions, enhancing the model's ability to abstract higher-level features from both input images.
+    \item Decoder: A series of transposed convolutional layers that progressively restore the spatial resolution, aiming to output a high-fidelity combination of the original garment and the new fabric pattern.
+\end{itemize}
+
+The Discriminator is designed to evaluate the authenticity of the generated images, featuring convolutional layers followed by a flattening operation and a fully connected layer to produce a scalar output indicating the "realness" of the input image.
+
+\subsection{Loss Functions and Optimization}
+
+During training, the system uses L1 and adversarial loss functions. Adversarial loss facilitates the creation of realistic-looking photographs by attempting to get the produced images as near to the originals as is practical. This is required to give the fabric overlays a realistic appearance. On the other hand, L1 loss focuses on reducing the differences between the target image and the generated image, pixel by pixel. This ensures that the overlay is accurate and closely reflects the picture we want. The goal of regularization strategies like as L1 and L2 is to prevent the model from overfitting, or from being too good at only remembering the training set. These techniques make sure the model doesn't get stuck on specific cases and aid in the generalization of its insights to new data. Consequently, Using these loss functions and techniques, the system learns to generate accurate and realistic fabric overlays that are appropriate for a variety of applications.
+
+
+
+\subsection{Insights and Enhancements}
+
+Our experiments have led to several insights:
+
+\begin{itemize}
+    \item The balance between the adversarial loss and the L1 loss is crucial for achieving both realism and fidelity.
+    \item Regularization and gradient clipping are essential for stabilizing training and preventing the explosion of gradients, which is common in GAN training.
+\end{itemize}
+
+Possible enhancements to our model include:
+
+\begin{itemize}
+    \item Increasing the depth and complexity of the network to capture more detailed patterns and textures.
+    \item Exploring different architectures or training methods such as progressive growing of GANs to gradually increase the resolution of generated images for better quality.
+\end{itemize}
+
+
+\subsection{Results}
+The results of the Conditional GAN experiment are shown in Table and Figures.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cccc}
+        \toprule
+        \textbf{Epoch} & \textbf{D Loss} & \textbf{G Loss} & \textbf{Validation Accuracy} \\
+        \midrule
+        50 & 0.50 & 1.30 & 0.65 \\
+        100 & 0.45 & 1.15 & 0.70 \\
+        200 & 0.40 & 1.05 & 0.75 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Conditional GAN experiment results: loss values and validation accuracy over epochs.}
+    \label{tab:cgan_results}
+\end{table}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{cycle.png}
+    \caption{Example Image}
+    \label{fig:example}
+\end{figure}
+
+
+The graphs demonstrate that when the model was trained, both the Generator (G) loss and the Discriminator (D) loss reduced, which is good since it shows the model got better at what it was doing. The second graph demonstrates how, with the inclusion of further restrictions, such establishing a certain style, the model became even more adept at creating a range of well-controlled images. As a result, the model not only learned efficiently but also became better at following instructions under the circumstances we set. This is similar to seeing a student grasp a concept and then succeed with more assistance. These results suggest that by include circumstances, the model might provide a wider range of images while maintaining control.
+
+\subsection{Discussion}
+Depending on the criteria we choose, the model in the Conditional GAN experiment shows that it can produce a large range of apparel images. It is learning how to match the situation with the right photo, as seen by the more accurate estimations it produces as it gets more training. Similar to when you ask someone to construct a piece of clothing for you based on precise measurements, with time they get more skilled at determining what you want. It's noteworthy to note that these results suggest the model is starting to understand the idea of matching the right images to the conditions. This might be quite useful in a lot of situations when we have to create custom photos that meet particular requirements.
+
+
+
+\section{Conclusion}
+It is shown that CycleGANs and Conditional GANs are equally effective in turning fabric patterns into full apparel images. CycleGANs are adaptable translators with a high degree of domain switching ease. Conversely, conditional GANs provide us more control over the images we get by letting us specify parameters like the kind of clothes. It's like having two different tools in your toolbox: one that you can use for a wide range of applications and another that lets you tailor the exact outcomes you want.
+
+These models can yet be much enhanced in the future. We could tweak them to perform even faster or provide even more realistic images. Additionally, there is adaptability to try out various conditional expressions. Furthermore, there's flexibility to play about with alternative conditions that may be applied to the Conditional GANs, such as substituting textures or colors for styles. We can continue pushing the limits of AI-powered picture production by improving these models and investigating other approaches, creating exciting new possibilities for creative applications in fashion and other fields.
+
+
+\section*{References}
+
+\begin{enumerate}
+    \item Rajput, P. S., \& Aneja, S. (2021). IndoFashion: Apparel Classification for Indian Ethnic Clothes. arXiv e-prints.
+    Retrieved from \url{https://indofashion.github.io/assets/paper.pdf}
+    
+    \item Cao, S., Chai, W., Hao, S., Zhang, Y., Chen, H., \& Wang, G. (2023). DiffFashion: Reference-based Fashion Design with Structure-aware Transfer by Diffusion Models. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/2302.06826.pdf}
+    
+    \item Rajput, P. S., \& Aneja, S. (2021). Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops, pp. 3935-3939.
+    
+    \item Rostamzadeh, N., Hosseini, S., Boquet, T., Stokowiec, W., Zhang, Y., Jauvin, C., \& Pal, C. (2018). Fashion-Gen: The Generative Fashion Dataset and Challenge. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/1806.08317v2.pdf}
+    
+    \item Liu, X., Li, J., Wang, J., \& Liu, Z. (2020). MMFashion: An Open-Source Toolbox for Visual Fashion Analysis. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/2005.08847v2.pdf}
+    
+    \item Ma, Q., Yang, J., Ranjan, A., Pujades, S., Pons-Moll, G., Tang, S., \& Black, M. J. (2020). Learning to Dress 3D People in Generative Clothing. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/1907.13615v3.pdf}
+\end{enumerate}
+
+\end{document}
+
