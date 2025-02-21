@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{FashionVision: Revolutionizing Clothing Selection with AI}
+\author{Adnan Yousaf}
+\date{March 24, 2024}
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}
+When it comes to fashion, the excitement of purchasing apparel often diminishes when designing and creating these items become involved. This frustration is compounded when tailored garments deviate significantly from expectations due to misinterpreted patterns. Additionally, uncertainty arises regarding the suitability of selected designs for specific fabrics. In response to these challenges, we propose FashionVision, an innovative AI-driven recommendation system poised to transform the clothing selection process. FashionVision utilizes state-of-the-art picture creation techniques, including Conditional Generative Adversarial Networks (GANs) and Cyclic GANs, to seamlessly convert fabric design patches into complete dress images. This allows users to visualize and customize their selected looks with ease. The primary emphasis of FashionVision's evaluation metric is the accuracy of predicted dress designs and user satisfaction. Moreover, the system's precision in suggesting suitable designs for various materials will be assessed. FashionVision will be trained and validated using datasets from IndoFashion and Kaggle, offering a diverse range of fabric designs and styles for comprehensive model testing and training. Our aim with FashionVision is to enhance the dress-selection process for women, making it less arduous and more enjoyable by improving their overall purchasing experience.
+
+\section*{Datasets}
+
+\subsection*{IndoFashion}
+IndoFashion is a distinctive fashion dataset showcasing a wide variety of Indian ethnic clothing. Comprising 106,000 photos across 15 different categories, it is the most comprehensive collection available for the classification of ethnic fabrics. Carefully curated from various Indian e-commerce sites and Google image searches, the dataset features a diverse range of designs, hues, and patterns. Each image in the collection is annotated to indicate the corresponding class group, providing structure and clarity for research and development endeavors. The dataset serves as a valuable resource for studying and advancing the field of fashion technology.
+
+\section*{Literature Review}
+
+\subsection*{Paper 1: DiffFashion: Reference-based Fashion Design with Structure-aware Transfer by Diffusion Models }
+\subsubsection*{Summary}
+This paper addresses the challenge of accurately categorizing Indian ethnic attire, which differs significantly from Western clothing in terms of styles and patterns. The authors aim to create a large-scale dataset and evaluate models for fine-grained classification of Indian ethnic clothes.
+\subsubsection*{Methods}
+Various Image Classification models, including ResNet-18, ResNet-50, and ResNet-101, are evaluated using different augmentations such as jitter and flipping.
+\subsubsection*{Datasets}
+The primary dataset used is IndoFashion, comprising over 106K images of 15 different categories of Indian ethnic clothes.
+\subsubsection*{Accuracy Metrics}
+Evaluation is based on precision, recall, and F1-score for different ResNet backbone sizes with various augmentations.
+\subsubsection*{Discussion}
+The study emphasizes the importance of specialized datasets and advanced augmentation techniques in addressing the challenges of apparel classification for Indian ethnic clothes.
+
+
+
+\section*{Paper 2: MMFashion: An Open-Source Toolbox for Visual Fashion Analysis }
+
+\subsection*{Citation:}
+Cao, S., Chai, W., Hao, S., Zhang, Y., Chen, H., \& Wang, G. (2023). DiffFashion: Reference-based Fashion Design with Structure-aware Transfer by Diffusion Models. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/2302.06826.pdf}
+
+\subsection*{Summary:}
+The paper introduces a novel fashion design task, aiming to transfer a reference appearance image onto a clothing image while preserving the structure of the clothing. The challenge arises from the absence of reference images for the newly designed output fashion images. The authors propose a diffusion model-based unsupervised structure-aware transfer method to semantically generate new clothes from a given clothing image and a reference appearance image. They decouple the foreground clothing with automatically generated semantic masks and use these masks as guidance in the denoising process to preserve structure information. Additionally, pre-trained vision Transformers (ViT) are employed for appearance and structure guidance.
+
+\subsection*{Methods:}
+The proposed method involves four key components: overview of fashion design with DiffFashion, mask generation by label condition, mask-guided structure transfer diffusion, and ViT feature guidance. Experimental setups include utilizing a label-conditional diffusion model pre-trained on the ImageNet dataset, with specific parameters and threshold settings for mask generation and guidance.
+
+\subsection*{Datasets:}
+The authors introduce a new dataset called OceanBag, comprising real handbag images and ocean animal images as reference appearances for generating new fashion designs. The dataset includes 6,000 photos of handbags and 2,400 marine scene images containing various marine organisms.
+
+\subsection*{Accuracy Metrics:}
+Due to the lack of existing automatic metrics suitable for evaluating fashion design across two natural images, the authors rely on human perceptual evaluation for validation, following existing appearance transfer/fashion design works.
+
+\subsection*{Discussion:}
+This paper contributes to the understanding of reference-based fashion design by proposing a novel diffusion model-based method that addresses the challenge of maintaining structure while transferring appearance. The method outperforms state-of-the-art baseline models, generating more realistic images in the fashion design task. The use of a new dataset and human perceptual evaluation for validation adds to the credibility of the findings. However, limitations may include the subjective nature of human evaluation and potential biases in dataset selection. Nonetheless, the proposed method offers promising solutions for reference-based fashion design with structure-aware transfer.
+
+\section*{Paper 3: Fashion-Gen: The Generative Fashion Dataset and Challenge }
+
+\subsection*{Citation}
+Rostamzadeh, N., Hosseini, S., Boquet, T., Stokowiec, W., Zhang, Y., Jauvin, C., \& Pal, C. (2018). Fashion-Gen: The Generative Fashion Dataset and Challenge. arXiv e-prints. Retrieved from \href{https://arxiv.org/pdf/1806.08317v2.pdf}
+
+\subsection*{Summary}
+The paper introduces a new dataset comprising 293,008 high-definition fashion images paired with item descriptions provided by professional stylists. Each item is photographed from various angles. The research aims to address two primary objectives: 1) generating high-resolution images using progressive GAN (P-GAN) growing techniques, and 2) text-to-image synthesis using StackGAN-v1 and StackGAN-v2 models. Baseline results are provided for both tasks, and the paper outlines a challenge based on this dataset.
+
+\subsection*{Methods}
+Two sets of experiments are presented: first, generating high-resolution images using the P-GAN technique, and second, text-to-image synthesis using StackGAN-v1 and StackGAN-v2 models.
+
+\subsection*{Datasets}
+The Fashion-Gen dataset consists of 293,008 images, with 260,480 for training, 32,528 for validation, and 32,528 for testing. This dataset is larger than other available datasets for text-to-image translation tasks.
+
+\subsection*{Accuracy Metrics}
+Inception Score is used as an evaluation metric, with results reported for Fashion Real data, StackGAN-v1, StackGAN-v2, and P-GAN models.
+
+\subsection*{Discussion}
+The paper contributes to advancing research in high-resolution image generation and text-to-image synthesis by providing a large-scale dataset and baseline results for benchmarking. The use of professional stylist-provided item descriptions enhances the dataset's quality and realism. The experiments conducted demonstrate the effectiveness of P-GAN and StackGAN models in generating realistic fashion images. However, the paper's limitations may include potential biases in stylist-provided descriptions and the need for further exploration of novel techniques to improve image generation quality. Nonetheless, Fashion-Gen dataset and challenge offer valuable resources for researchers to explore and advance the state-of-the-art in fashion image generation.
+\section*{Paper 4: MMFashion: An Open-Source Toolbox for Visual Fashion Analysis}
+
+\subsection*{Citation}
+Liu, X., Li, J., Wang, J., \& Liu, Z. (2020). MMFashion: An Open-Source Toolbox for Visual Fashion Analysis. arXiv e-prints. Retrieved from \href{https://arxiv.org/pdf/2005.08847v2.pdf}{https://arxiv.org/pdf/2005.08847v2.pdf}
+
+\subsection*{Summary}
+The paper presents MMFashion, an open-source toolbox based on PyTorch for visual fashion analysis. MMFashion supports various fashion analysis tasks, including attribute prediction, recognition and retrieval, landmark detection, parsing and segmentation, and compatibility and recommendation. It follows a modular design principle, making it easily extensible for customized modules. Detailed documentation, demo scripts, and pre-trained models are provided, facilitating the adoption of deep learning-based fashion analysis by non-expert users. MMFashion serves as a comprehensive platform for deploying existing models and developing new ideas in the field of visual fashion analysis.
+
+\subsection*{Methods}
+MMFashion addresses multiple fashion analysis tasks, each with its specific methods. Fashion Attribute Prediction involves multi-label prediction, with top-k recall rate used for evaluation. Fashion Recognition and Retrieval determines if two images belong to the same clothing item, with variations for in-shop and consumer-to-shop retrieval scenarios. Fashion Landmark Detection detects key-points on clothes, while Fashion Parsing and Segmentation focuses on object detection and instance segmentation on cloth data.
+
+\subsection*{Datasets}
+The paper utilizes the DeepFashion dataset, which contains over 800,000 diverse fashion images for attribute prediction, clothes retrieval, and landmark detection tasks. Additionally, the authors create annotations for clothes detection and segmentation, serving the Fashion Parsing and Segmentation task. This dataset is considered one of the most accurate open-source datasets in the fashion community.
+
+\subsection*{Accuracy Metrics}
+Evaluation metrics include the standard top-k recall rate and accuracy for attribute prediction models. The recall rate and accuracy are computed for each attribute separately, comparing assigned attributes with ground-truth attributes.
+
+\subsection*{Discussion}
+MMFashion contributes significantly to the field of visual fashion analysis by providing a comprehensive, flexible, and user-friendly toolbox. Its modular design and extensive documentation make it accessible to both experts and non-experts, fostering collaboration and innovation in the fashion analysis community. The paper's strengths lie in its detailed methodology, use of a diverse dataset, and clear evaluation metrics. However, potential limitations may include the need for further validation across different datasets and scenarios. Overall, MMFashion serves as a valuable resource for researchers and practitioners, advancing the understanding and solutions in visual fashion analysis.
+
+\section*{Paper 5: Learning to Dress 3D People in Generative Clothing }
+
+\subsection*{Citation:}
+Ma, Q., Yang, J., Ranjan, A., Pujades, S., Pons-Moll, G., Tang, S., \& Black, M. J. (2020). Learning to Dress 3D People in Generative Clothing. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/1907.13615v3.pdf}
+
+\subsection*{Summary:}
+The paper addresses the challenge of generating 3D human body models with clothing, which can accurately represent the complexity of dressed individuals in images and videos. Existing models lack the ability to generalize to dressed people and fail to capture the intricate geometry of clothing. The authors propose a novel approach called CAPE, a conditional Mesh-VAE-GAN model, which learns clothing deformation from 3D scans of clothed individuals. CAPE extends the SMPL body model to incorporate clothing as an additional term, allowing it to generate clothing for different body shapes and styles. The model preserves fine details like wrinkles using patchwise discriminators for 3D meshes.
+
+\subsection*{Methods:}
+Clothing is represented as a displacement layer on a graph topology similar to the SMPL body model. A conditional Mesh-VAE-GAN, incorporating graph convolutional neural networks, is used to learn the clothing deformation. The model's GAN component encourages the generation of visually plausible wrinkles, improving the quality of fine structures in the clothing.
+
+\subsection*{Datasets:}
+A dataset of 3D clothing is built by capturing temporal sequences of 3D human body scans, with corresponding minimally-clothed scans used to estimate body shapes under clothing. Noisy frames and failed registrations are removed manually.
+
+\subsection*{Accuracy Metrics:}
+Mean square error (MSE) is used to measure the reconstruction accuracy of the model compared to ground truth vertices, with adjustments made to eliminate the influence of factors like focal length and camera translation.
+
+\subsection*{Discussion:}
+The paper introduces a significant advancement in generative clothing models for 3D human body meshes, enabling realistic clothing generation for various body shapes and poses. CAPE addresses limitations of existing models and contributes to the understanding of clothing representation in 3D models, with potential applications in computer graphics, virtual try-on systems, and fashion industry simulations.
+
+
+
+% Include other papers in a similar format
+
+\documentclass{article}
+\usepackage{hyperref}
+
+\begin{document}
+
+\section*{References}
+
+\begin{enumerate}
+    \item Rajput, P. S., \& Aneja, S. (2021). IndoFashion: Apparel Classification for Indian Ethnic Clothes. arXiv e-prints. Retrieved from \url{https://indofashion.github.io/assets/paper.pdf}
+    
+    \item Cao, S., Chai, W., Hao, S., Zhang, Y., Chen, H., \& Wang, G. (2023). DiffFashion: Reference-based Fashion Design with Structure-aware Transfer by Diffusion Models. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/2302.06826.pdf}
+    
+    \item Rajput, P. S., \& Aneja, S. (2021). Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops, pp. 3935-3939.
+    
+    \item Rostamzadeh, N., Hosseini, S., Boquet, T., Stokowiec, W., Zhang, Y., Jauvin, C., \& Pal, C. (2018). Fashion-Gen: The Generative Fashion Dataset and Challenge. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/1806.08317v2.pdf}
+    
+    \item Liu, X., Li, J., Wang, J., \& Liu, Z. (2020). MMFashion: An Open-Source Toolbox for Visual Fashion Analysis. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/2005.08847v2.pdf}
+    
+    \item Ma, Q., Yang, J., Ranjan, A., Pujades, S., Pons-Moll, G., Tang, S., \& Black, M. J. (2020). Learning to Dress 3D People in Generative Clothing. arXiv e-prints. Retrieved from \url{https://arxiv.org/pdf/1907.13615v3.pdf}
+\end{enumerate}
+
+\end{document}
+
